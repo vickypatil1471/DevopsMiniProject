@@ -1,0 +1,24 @@
+---
+- name: Deploy Frontend App
+  hosts: localhost
+
+  tasks:
+
+    - name: Stop existing container
+      command: docker stop frontend_container
+      ignore_errors: yes
+
+    - name: Remove existing container
+      command: docker rm frontend_container
+      ignore_errors: yes
+
+    - name: Run new container
+      command: docker run -d -p 3000:5173 --name frontend_container frontendimg:latest
+
+    - name: Get container logs
+      command: docker logs frontend_container
+      register: container_logs
+
+    - name: Display logs
+      debug:
+        msg: "{{ container_logs.stdout_lines }}"

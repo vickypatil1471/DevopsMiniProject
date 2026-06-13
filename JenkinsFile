@@ -1,0 +1,43 @@
+pipeline {
+    agent any
+
+    environment {
+        GIT_REPO = 'https://github.com/YOUR_USERNAME/frontend-devops.git'
+        LOCAL_DIR = 'C:\\Users\\vicky\\frontend-devops'
+
+        IMAGE_NAME = 'frontendimg:latest'
+        CONTAINER_NAME = 'frontend_container'
+
+        WSL_ANSIBLE_SCRIPT = '/mnt/c/Users/vicky/frontend-devops/ansible/devopsdeploy.yml'
+    }
+
+    stages {
+
+        stage('Build Docker Image') {
+            steps {
+                script {
+                    bat '''
+                    cd /d %LOCAL_DIR%
+                    docker build -t %IMAGE_NAME% .
+                    '''
+                }
+            }
+        }
+
+        stage('Deploy with Ansible on WSL') {
+            steps {
+                script {
+                    bat '''
+                    wsl ansible-playbook %WSL_ANSIBLE_SCRIPT%
+                    '''
+                }
+            }
+        }
+
+        stage('Verify Deployment') {
+            steps {
+                bat 'docker ps'
+            }
+        }
+    }
+}
