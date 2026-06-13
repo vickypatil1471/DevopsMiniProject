@@ -2,13 +2,13 @@ pipeline {
     agent any
 
     environment {
-        GIT_REPO = 'https://github.com/YOUR_USERNAME/frontend-devops.git'
+        GIT_REPO = 'https://github.com/vickypatil1471/DevopsMiniProject.git'
         LOCAL_DIR = 'C:\\Users\\vicky\\frontend-devops'
 
         IMAGE_NAME = 'frontendimg:latest'
         CONTAINER_NAME = 'frontend_container'
 
-        WSL_ANSIBLE_SCRIPT = '/mnt/c/Users/vicky/frontend-devops/ansible/devopsdeploy.yml'
+        WSL_ANSIBLE_SCRIPT = '/mnt/c/Users/vicky/mern-movie-booking-app/front-end/ansible/devopsdeploy.yml'
     }
 
     stages {
