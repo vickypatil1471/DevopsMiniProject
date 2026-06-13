@@ -16,10 +16,9 @@ pipeline {
         stage('Debug WSL') {
             steps {
                 bat '''
-                wsl whoami
-                wsl which ansible
-                wsl which ansible-playbook
-                wsl ansible-playbook --version
+                wsl -u vicky whoami
+                wsl -u vicky which ansible-playbook
+                wsl -u vicky ansible-playbook --version
                 '''
             }
         }
@@ -39,7 +38,7 @@ pipeline {
             steps {
                 script {
                     bat '''
-                    wsl ansible-playbook %WSL_ANSIBLE_SCRIPT%
+                    wsl -u vicky ansible-playbook %WSL_ANSIBLE_SCRIPT%
                     '''
                 }
             }
