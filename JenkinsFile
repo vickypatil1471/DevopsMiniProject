@@ -13,6 +13,17 @@ pipeline {
 
     stages {
 
+        stage('Debug WSL') {
+            steps {
+                bat '''
+                wsl whoami
+                wsl which ansible
+                wsl which ansible-playbook
+                wsl ansible-playbook --version
+                '''
+            }
+        }
+
         stage('Build Docker Image') {
             steps {
                 script {
